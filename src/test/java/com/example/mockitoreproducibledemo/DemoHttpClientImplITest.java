@@ -30,14 +30,14 @@ class DemoHttpClientImplITest {
     private RetryTemplate retryTemplate;
 
     @Test
-    void shouldThrowRewardsExceptionWhenRetryExceptionHappensOnSendRequestWithRetry() throws DemoException {
+    void shouldThrowDemoExceptionWhenRetryExceptionHappensOnSendRequestWithRetry() throws DemoException {
         var httpRequest = HttpRequest.newBuilder()
                 .header("Content-Type", "application/json; charset=UTF-8")
                 .uri(URI.create(SAMPLE_API_URL))
                 .POST(HttpRequest.BodyPublishers.ofString(JSON))
                 .build();
 
-        // The following fails
+        // Works when using mockito-inline
         doThrow(RetryException.class)
                 .when(retryTemplate)
                 .execute(any());
